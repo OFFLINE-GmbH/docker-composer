@@ -5,6 +5,7 @@ MAINTAINER Tobias Kuendig <tobias@offline.swiss>
 RUN apk add --no-cache \
 		ca-certificates \
 		curl \
+		zip \
 		openssl \
     && rm -rf /var/cache/apk/*
 
