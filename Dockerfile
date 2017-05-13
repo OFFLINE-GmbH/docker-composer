@@ -1,11 +1,14 @@
 FROM php:7.0-alpine
 MAINTAINER Tobias Kuendig <tobias@offline.swiss>
 
-# PHP
+RUN echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
+
 RUN apk add --no-cache \
 		ca-certificates \
 		curl \
 		zip \
+		file \
+		yarn \
 		openssl \
     && rm -rf /var/cache/apk/*
 
