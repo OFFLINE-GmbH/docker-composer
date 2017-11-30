@@ -1,4 +1,4 @@
-FROM php:7.0-alpine
+FROM php:7.1-alpine
 MAINTAINER Tobias Kuendig <tobias@offline.swiss>
 
 RUN echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
@@ -10,7 +10,16 @@ RUN apk add --no-cache \
 		file \
 		yarn \
 		openssl \
+                coreutils \
+                freetype-dev \
+                libjpeg-turbo-dev \
+                libltdl \
+                libmcrypt-dev \
+                libpng-dev \
     && rm -rf /var/cache/apk/*
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
