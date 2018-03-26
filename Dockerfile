@@ -10,6 +10,7 @@ RUN apk add --no-cache \
 		file \
 		yarn \
 		openssl \
+		openssh-client \
                 coreutils \
                 freetype-dev \
                 libjpeg-turbo-dev \
