@@ -22,6 +22,8 @@ RUN apk add --no-cache \
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+RUN docker-php-ext-install zip
+
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
