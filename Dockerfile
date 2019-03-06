@@ -4,29 +4,22 @@ MAINTAINER Tobias Kuendig <tobias@offline.ch>
 RUN echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
 
 RUN apk add --no-cache \
-                ca-certificates \
-                curl \
-                zip \
-                file \
-                openssl \
-                openssh-client \
+        ca-certificates \
+        curl \
+        zip \
+        file \
+        openssl \
+        openssh-client \
         coreutils \
         freetype-dev \
         libjpeg-turbo-dev \
         libzip-dev \
+        nodejs-current \
+        yarn \
         libltdl \
         libmcrypt-dev \
         libpng-dev \
     && rm -rf /var/cache/apk/*
-
-ENV YARN_VERSION 1.13.0
-ENV YARN_DIR /opt/yarn
-
-ADD https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v${YARN_VERSION}.tar.gz /opt/yarn.tar.gz
-
-RUN mkdir -p $YARN_DIR && \
-    tar -xzf /opt/yarn.tar.gz -C $YARN_DIR && \
-    rm /opt/yarn.tar.gz
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
@@ -35,7 +28,6 @@ RUN docker-php-ext-install zip
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
-
 
 # Docker
 
